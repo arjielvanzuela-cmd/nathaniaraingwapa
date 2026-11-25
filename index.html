@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Happy 1st Monthsary MyPanalangin! ♡</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      min-height: 100vh;
+      background: linear-gradient(160deg, #2b0f3a 0%, #1a0926 50%, #3a1033 100%);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      color: #ffffff;
+      overflow-x: hidden;
+    }
+
+    /* Fullscreen Photo Background */
+    .bg-photo {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 20%;
+      z-index: 0;
+      opacity: 0.85;
+    }
+
+    /* Soft Tint So Text Is Readable Without Blocking Photo */
+    .bg-tint {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(180deg, rgba(20, 8, 32, 0.35) 0%, rgba(15, 6, 25, 0.72) 100%);
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    /* Top Scrolling Banner */
+    .marquee-wrap {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      width: 100%;
+      overflow: hidden;
+      background: linear-gradient(90deg, #ff2a85, #9b5de5, #ff2a85);
+      padding: 10px 0;
+      border-bottom: 2px solid rgba(255, 255, 255, 0.4);
+    }
+
+    .marquee-track {
+      display: flex;
+      width: max-content;
+      animation: scrollMarquee 14s linear infinite;
+      font-weight: 800;
+      font-size: 13px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+    }
+
+    .marquee-track span {
+      padding: 0 18px;
+    }
+
+    @keyframes scrollMarquee {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    /* Main Content */
+    .container {
+      position: relative;
+      z-index: 10;
+      max-width: 480px;
+      margin: 0 auto;
+      padding: 18px 16px 80px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    /* Cards (No backdrop-filter so Android never renders black) */
+    .card {
+      background: rgba(24, 12, 38, 0.82);
+      border: 1.5px solid rgba(255, 255, 255, 0.28);
+      border-radius: 22px;
+      padding: 20px;
+      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.45);
+    }
+
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    .pill {
+      background: rgba(255, 42, 133, 0.35);
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      color: #fff;
+      padding: 6px 12px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    h1 {
+      font-size: 26px;
+      line-height: 1.2;
+      font-weight: 800;
+      color: #ffd166;
+      margin-bottom: 8px;
+    }
+
+    h2 {
+      font-size: 19px;
+      margin-bottom: 10px;
+      color: #ffd166;
+    }
+
+    p {
+      font-size: 15px;
+      line-height: 1.6;
+      color: #f8f8f8;
+    }
+
+    /* Letter Box */
+    .letter-box {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 209, 102, 0.45);
+      border-radius: 16px;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .letter-sign {
+      font-weight: 800;
+      color: #ffd166;
+      margin-top: 4px;
+    }
+
+    /* Interactive Flip Cards */
+    .flip-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .flip-card {
+      background: linear-gradient(135deg, #ff2a85, #8338ec);
+      border: 1.5px solid rgba(255, 255, 255, 0.35);
+      border-radius: 16px;
+      padding: 16px 12px;
+      min-height: 110px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      cursor: pointer;
+      transition: transform 0.15s;
+    }
+
+    .flip-card:active {
+      transform: scale(0.95);
+    }
+
+    .flip-card .emoji {
+      font-size: 26px;
+      margin-bottom: 6px;
+    }
+
+    .flip-card .title {
+      font-weight: 800;
+      font-size: 14px;
+    }
+
+    .flip-card .msg {
+      display: none;
+      font-size: 13px;
+      font-weight: 600;
+      line-height: 1.35;
+    }
+
+    .flip-card.open {
+      background: linear-gradient(135deg, #ff70a6, #ff2a85);
+    }
+
+    .flip-card.open .emoji,
+    .flip-card.open .title {
+      display: none;
+    }
+
+    .flip-card.open .msg {
+      display: block;
+    }
+
+    /* Tap to Reveal Box */
+    .reveal-box {
+      background: linear-gradient(135deg, #ff2a85, #9b5de5);
+      border: 2px dashed #ffd166;
+      border-radius: 16px;
+      padding: 18px;
+      text-align: center;
+      cursor: pointer;
+    }
+
+    .reveal-box:active {
+      transform: scale(0.97);
+    }
+
+    /* Meter & Buttons */
+    .meter-bar {
+      width: 100%;
+      height: 18px;
+      background: rgba(255, 255, 255, 0.18);
+      border-radius: 999px;
+      overflow: hidden;
+      margin: 12px 0;
+      padding: 2px;
+    }
+
+    .meter-fill {
+      height: 100%;
+      width: 20%;
+      border-radius: 999px;
+      background: linear-gradient(90deg, #00f5d4, #ff2a85, #ffd166);
+      transition: width 0.2s ease;
+    }
+
+    .mega-btn {
+      width: 100%;
+      padding: 15px;
+      border: none;
+      border-radius: 16px;
+      background: linear-gradient(135deg, #ff2a85, #ff70a6);
+      color: #fff;
+      font-weight: 800;
+      font-size: 16px;
+      cursor: pointer;
+      box-shadow: 0 6px 18px rgba(255, 42, 133, 0.5);
+    }
+
+    .mega-btn:active {
+      transform: scale(0.96);
+    }
+
+    /* Popup Modal */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(10, 4, 18, 0.88);
+      z-index: 100;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .modal-backdrop.active {
+      display: flex;
+    }
+
+    .modal-box {
+      background: #230e36;
+      border: 2px solid #ff2a85;
+      border-radius: 24px;
+      padding: 24px;
+      max-width: 390px;
+      width: 100%;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Background Photo (hides cleanly if previewed offline without bg.jpg) -->
+  <img src="bg.jpg" alt="" class="bg-photo" onerror="this.style.display='none'" />
+  <div class="bg-tint"></div>
+
+  <!-- Top Banner -->
+  <div class="marquee-wrap">
+    <div class="marquee-track">
+      <span>★ HAPPY 1ST MONTHSARY MYPANALANGIN! ♡ ★</span>
+      <span>1 MONTH DOWN & COUNTING ✨</span>
+      <span>★ HAPPY 1ST MONTHSARY BUSSSENG! 🐻 ★</span>
+      <span>★ HAPPY 1ST MONTHSARY MYPANALANGIN! ♡ ★</span>
+      <span>1 MONTH DOWN & COUNTING ✨</span>
+      <span>★ HAPPY 1ST MONTHSARY BUSSSENG! 🐻 ★</span>
+    </div>
+  </div>
+
+  <div class="container">
+    <!-- Title Card -->
+    <div class="card">
+      <div class="badge-row">
+        <span class="pill">📅 1st Monthsary</span>
+        <span class="pill">🐻 Busssengg</span>
+        <span class="pill">♡ My Panalangin</span>
+      </div>
+      <h1>Happy 1st Monthsary MyPanalangin! ♡</h1>
+      <p>Tap any card or button below!</p>
+    </div>
+
+    <!-- Full Letter -->
+    <div class="card">
+      <h2>💌 A Letter For You</h2>
+      <div class="letter-box">
+        <p><strong>Happy 1st Monthsary MyPanalangin! ♡</strong></p>
+        <p>1 month nagyud ta nag ila boss! I just want to say how thankful I am nga naa ka sa akong life.</p>
+        <p>You're one of the smartest and most caring people I've ever met. I admire your faith and how you remain a woman of God. I hope you never stop being the wonderful person that you are.</p>
+        <p>Thank you for every laugh, conversation, and little moment we've shared. I know one month might seem short, but I'm happy nga nakaabot ta ani nga milestone.</p>
+        <p>I hope we continue growing together, understanding each other, and putting God at the center of everything.</p>
+        <p>Always remember nga special kaayo ka sa akoa My Panalangin.</p>
+        <p><strong>Happy 1st Monthsary Busssengg!</strong></p>
+        <div class="letter-sign">
+          With love,<br>
+          Ur boss arjiel ♡
+        </div>
+      </div>
+    </div>
+
+    <!-- Interactive Cards -->
+    <div class="card">
+      <h2>✨ Tap Each Card</h2>
+      <div class="flip-grid">
+        <div class="flip-card" onclick="this.classList.toggle('open')">
+          <div class="emoji">🧠</div>
+          <div class="title">Smart & Caring</div>
+          <div class="msg">One of the smartest and most caring people I've ever met.</div>
+        </div>
+        <div class="flip-card" onclick="this.classList.toggle('open')">
+          <div class="emoji">🕊️</div>
+          <div class="title">Woman of God</div>
+          <div class="msg">I admire your faith and how you remain a woman of God.</div>
+        </div>
+        <div class="flip-card" onclick="this.classList.toggle('open')">
+          <div class="emoji">💬</div>
+          <div class="title">Every Moment</div>
+          <div class="msg">Thank you for every laugh, conversation, and little moment we've shared.</div>
+        </div>
+        <div class="flip-card" onclick="this.classList.toggle('open')">
+          <div class="emoji">💖</div>
+          <div class="title">My Panalangin</div>
+          <div class="msg">Always remember nga special kaayo ka sa akoa!</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Secret Note -->
+    <div class="card">
+      <h2>🎟️ Secret Note</h2>
+      <div class="reveal-box" onclick="toggleSecret()">
+        <div id="secret-front" style="font-weight: 800; font-size: 15px;">✨ TAP HERE TO REVEAL ✨</div>
+        <div id="secret-back" style="display: none; font-weight: 700; color: #ffd166; font-size: 15px;">
+          "Always remember nga special kaayo ka sa akoa My Panalangin. Happy 1st Monthsary Busssengg! ♡"
+        </div>
+      </div>
+    </div>
+
+    <!-- Interactive Meter -->
+    <div class="card">
+      <h2>⚡ Tap to Unlock Surprise</h2>
+      <div class="meter-bar">
+        <div class="meter-fill" id="meter-fill"></div>
+      </div>
+      <button type="button" class="mega-btn" id="charge-btn" onclick="chargeMeter()">TAP TO CHARGE (20%)</button>
+    </div>
+  </div>
+
+  <!-- Surprise Modal -->
+  <div class="modal-backdrop" id="finale-modal">
+    <div class="modal-box">
+      <div style="font-size: 42px; margin-bottom: 8px;">🐻💖✨</div>
+      <h1 style="font-size: 22px;">Happy 1st Monthsary Busssengg!</h1>
+      <p style="margin: 12px 0 16px;">
+        Here's to growing together, understanding each other, and putting God at the center of everything. Always remember nga special kaayo ka sa akoa My Panalangin!
+      </p>
+      <p style="font-weight: 800; color: #ffd166; margin-bottom: 16px;">With love, Ur boss arjiel ♡</p>
+      <button type="button" class="mega-btn" onclick="closeModal()">CLOSE & REPLAY 🎉</button>
+    </div>
+  </div>
+
+  <script>
+    function toggleSecret() {
+      var front = document.getElementById('secret-front');
+      var back = document.getElementById('secret-back');
+      if (back.style.display === 'none') {
+        back.style.display = 'block';
+        front.style.display = 'none';
+      } else {
+        back.style.display = 'none';
+        front.style.display = 'block';
+      }
+    }
+
+    var charge = 20;
+    function chargeMeter() {
+      charge = Math.min(100, charge + 20);
+      document.getElementById('meter-fill').style.width = charge + '%';
+      var btn = document.getElementById('charge-btn');
+      btn.textContent = charge < 100 ? 'KEEP TAPPING! (' + charge + '%)' : '100% UNLOCKED! 🎉';
+      if (charge >= 100) {
+        setTimeout(function() {
+          document.getElementById('finale-modal').classList.add('active');
+        }, 200);
+      }
+    }
+
+    function closeModal() {
+      document.getElementById('finale-modal').classList.remove('active');
+      charge = 20;
+      document.getElementById('meter-fill').style.width = '20%';
+      document.getElementById('charge-btn').textContent = 'TAP TO CHARGE (20%)';
+    }
+  </script>
+</body>
+</html>
